@@ -79,6 +79,7 @@ import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
 import TheSpinner from "../components/TheSpinner.vue";
 export default {
+  name: "WizzkidDetails",
   components: { TheSpinner },
   props: ["id"],
   setup(props) {

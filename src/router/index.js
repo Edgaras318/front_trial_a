@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import WizzkidDetails from '@/views/WizzkidDetails.vue'
+import Register from '@/views/auth/Register.vue'
+
 const routes = [
   {
     path: '/',
@@ -12,7 +14,13 @@ const routes = [
     name: 'WizzkidDetails',
     component: WizzkidDetails,
     props: true
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
   }
+
 ]
 
 const router = createRouter({
