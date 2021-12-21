@@ -63,7 +63,6 @@
             class="form-control"
             id="phoneInput"
             placeholder="Enter phone"
-            required
           />
         </div>
         <div class="form-group mb-2">
