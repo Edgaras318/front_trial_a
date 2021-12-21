@@ -12,11 +12,14 @@ const getWizzkid = () => {
     try {
       const res = await axios.get("users/" + id);
       wizzkid.value = res.data;
+      //console.log(wizzkid.value);
       isLoading.value = false;
+      console.log(isLoading.value)
     } catch (error) {
       isLoading.value = false;
       error.value = error;
     }
+    isLoading.value = false
   }
 
   return {
