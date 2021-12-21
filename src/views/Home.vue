@@ -1,12 +1,14 @@
 <template>
   <div class="home">
-    <button class="btn btn-primary">Front end for best application</button>
+    <!-- Wizzkids section -->
+    <WizzkidSection />
   </div>
 </template>
 
 <script>
+import WizzkidSection from "../components/WizzkidSection/WizzkidSection.vue";
 export default {
   name: "Home",
-  components: {},
+  components: { WizzkidSection },
 };
 </script>
