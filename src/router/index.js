@@ -34,8 +34,9 @@ const router = createRouter({
   routes
 })
 
-const { user } = getUser();
+const { user, loadUser } = getUser();
 router.beforeEach((to, from, next) => {
+  loadUser();
   if (to.name == "WizzkidDetails") {
     if (localStorage.token && user.value) {
       next();

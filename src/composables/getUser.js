@@ -16,15 +16,16 @@ const loadUser = async () => {
 
   if (localStorage.token) {
     setAuthHeader(localStorage.token);
-    try {
-      const res = await axios.get("auth", config);
-      user.value = res.data;
-    } catch (error) {
-      localStorage.removeItem("token");
-      //  console.log(error.response);
-      error.value = error;
-      user.value = null;
-    }
+  }
+
+  try {
+    const res = await axios.get("auth", config);
+    user.value = res.data;
+  } catch (error) {
+    //  console.log(error.response);
+    localStorage.removeItem("token");
+    error.value = error;
+    user.value = null;
   }
 }
 
