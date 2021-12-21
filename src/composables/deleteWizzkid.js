@@ -10,7 +10,7 @@ const deleteWizzkid = () => {
     isPending.value = true;
     error.value = null;
     try {
-      const res = await axios.delete("users/" + id);
+      const res = await axios.delete("user/" + id);
       isPending.value = false;
       return res;
     } catch (error) {

@@ -1,4 +1,4 @@
-<template>
+<template >
   <header>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
       <div class="container">
@@ -19,15 +19,15 @@
             <li class="nav-item">
               <router-link to="/" class="nav-link">Home</router-link>
             </li>
-            <li class="nav-item">
-              <router-link to="/login" @click="handleClick" class="nav-link">
+            <li v-if="user" class="nav-item">
+              <span @click="handleClick" type="button" class="nav-link">
                 <i class="bi bi-box-arrow-right"> Logout</i>
-              </router-link>
+              </span>
             </li>
-            <li class="nav-item">
+            <li v-if="!user" class="nav-item">
               <router-link to="/login" class="nav-link">Login</router-link>
             </li>
-            <li class="nav-item">
+            <li v-if="!user" class="nav-item">
               <router-link to="/register" class="nav-link"
                 >Register</router-link
               >
@@ -38,8 +38,29 @@
     </nav>
   </header>
 </template>
+
 <script>
-export default {};
+import useLogout from "@/composables/useLogout";
+import getUser from "@/composables/getUser";
+import { useRouter } from "vue-router";
+
+export default {
+  name: "TheNavBar",
+  setup() {
+    const { user, loadUser } = getUser();
+    const { logout } = useLogout();
+    const router = useRouter();
+
+    const handleClick = async () => {
+      await logout();
+      user.value = null;
+      await loadUser();
+      router.push({ name: "Login" });
+    };
+
+    return { logout, handleClick, user };
+  },
+};
 </script>
 <style>
 body::before {

@@ -98,6 +98,7 @@
 </template>
 <script>
 import useRegister from "@/composables/useRegister";
+import getUser from "@/composables/getUser";
 import { useRouter } from "vue-router";
 
 import { ref } from "vue";
@@ -106,6 +107,7 @@ export default {
   name: "Register",
   setup() {
     const { error, register, isLoading } = useRegister();
+    const { loadUser } = getUser();
 
     const picturePreview = ref("");
     const picture = ref("");
@@ -125,13 +127,14 @@ export default {
       formData.append("role", role.value);
       formData.append("phone", phone.value);
       formData.append("password", password.value);
-      // formData.append("password_confirmation", password_confirmation.value);
+      formData.append("password_confirmation", password_confirmation.value);
       // formData.append("picture", picture.value);
 
       await register(formData);
 
       if (!error.value) {
         router.push("/");
+        loadUser();
       }
     };
 
