@@ -1,13 +1,12 @@
 import { ref } from 'vue';
 import axios from 'axios';
 
-
+const wizzkid = ref(null);
+const isLoading = ref(false);
+const error = ref(null);
 
 const getWizzkid = () => {
 
-  const wizzkid = ref(null);
-  const isLoading = ref(false);
-  const error = ref(null);
 
   const getWizz = async (id) => {
     isLoading.value = true;

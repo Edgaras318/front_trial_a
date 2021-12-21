@@ -129,6 +129,8 @@ export default {
       formData.append("password_confirmation", password_confirmation.value);
       // formData.append("picture", picture.value);
 
+      // console.log(picture.value);
+
       await register(formData);
 
       if (!error.value) {

@@ -26,7 +26,10 @@
           </div>
         </div>
         <div class="col-md-6 col-lg-8 px-4 py-4 position-relative">
-          <button class="btn btn-success position-absolute end-0 top-0 m-2">
+          <button
+            @click="handleShow"
+            class="btn btn-success position-absolute end-0 top-0 m-2"
+          >
             <i class="bi bi-pencil-square"></i>
             <span class="d-none d-md-inline"> Edit Profile</span>
           </button>
@@ -69,7 +72,16 @@
         </div>
       </div>
     </div>
+
     <!-- Edit User Modal-->
+    <WizzkidEdit
+      v-if="wizzkid"
+      :wizzkidId="wizzkid.id"
+      :wizzkidemail="wizzkid.email"
+      :wizzkidrole="wizzkid.role"
+      :wizzkidphone="wizzkid.phone"
+      :wizzkidname="wizzkid.name"
+    />
   </section>
 </template>
 <script>
@@ -78,9 +90,12 @@ import getWizzkid from "@/composables/getWizzkid.js";
 import { useRouter } from "vue-router";
 import { onMounted } from "@vue/runtime-core";
 import TheSpinner from "../components/TheSpinner.vue";
+import { Modal } from "bootstrap";
+import WizzkidEdit from "../components/Dialogs/WizzkidEdit.vue";
+
 export default {
   name: "WizzkidDetails",
-  components: { TheSpinner },
+  components: { TheSpinner, WizzkidEdit },
   props: ["id"],
   setup(props) {
     const { isPending: isDeleting, deleteWizz } = deleteWizzkid();
@@ -95,11 +110,18 @@ export default {
       router.push("/");
     };
 
+    const handleShow = async () => {
+      const modal = document.getElementById("editProfileModal");
+      const myModal = Modal.getOrCreateInstance(modal);
+      myModal.show();
+    };
+
     return {
       isDeleting,
       handleDelete,
       isLoading,
       wizzkid,
+      handleShow,
     };
   },
 };
