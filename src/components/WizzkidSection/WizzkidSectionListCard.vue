@@ -1,15 +1,18 @@
 <template>
-  <div class="card">
-    <img
-      class="card-img-top rounded-circle"
-      src="https://randomuser.me/api/portraits/lego/2.jpg"
-      alt="wizzkid profile picture"
-    />
-    <div class="card-body">
-      <h5 class="card-title">{{ wizzkid.name }}</h5>
-      <p class="card-text">{{ wizzkid.role }}</p>
-      <p class="card-text">Phone: {{ wizzkid.phone }}</p>
-      <p class="card-text">Email: {{ wizzkid.email }}</p>
+  <div class="card bg-white">
+    <div class="card-body text-center">
+      <img
+        :src="
+          wizzkid.picture
+            ? '/images/blank-profile-picture.png'
+            : '/images/blank-profile-picture.png'
+        "
+        class="rounded-circle mb-3 img-fluid"
+        style="height: 150px; width: 150px"
+        alt=""
+      />
+      <h4 class="card-title mb-1">{{ wizzkid.name }}</h4>
+      <p class="card-text lead">{{ wizzkid.role }}</p>
       <router-link
         :to="{ name: 'WizzkidDetails', params: { id: wizzkid.id } }"
         class="
@@ -34,5 +37,11 @@ export default {
   },
 };
 </script>
-<style >
+<style scoped>
+#wizzkids img {
+  margin-top: -50px;
+}
+.card:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}
 </style>
