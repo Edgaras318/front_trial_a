@@ -1,13 +1,15 @@
 <template>
   <div>
+    <TheSpinner v-if="isLoading" />
     <p>wizzkid Id: {{ this.id }}</p>
+    <p v-if="!isLoading">{{ wizzkid.name }}</p>
     <button
-      :class="isPending ? 'disabled' : ''"
+      :class="isDeleting ? 'disabled' : ''"
       @click="handleDelete"
       class="btn btn-danger"
     >
       <span
-        v-if="isPending"
+        v-if="isDeleting"
         class="spinner-border spinner-border-sm"
         role="status"
         aria-hidden="true"
@@ -18,13 +20,20 @@
 </template>
 <script>
 import deleteWizzkid from "@/composables/deleteWizzkid.js";
+import getWizzkid from "@/composables/getWizzkid.js";
 import { useRouter } from "vue-router";
+import { onMounted } from "@vue/runtime-core";
+import TheSpinner from "../components/TheSpinner.vue";
 export default {
+  components: { TheSpinner },
   props: ["id"],
   setup(props) {
-    const { isPending, deleteWizz } = deleteWizzkid();
+    const { isPending: isDeleting, deleteWizz } = deleteWizzkid();
+    const { isLoading, getWizz, wizzkid } = getWizzkid();
 
     const router = useRouter();
+
+    onMounted(async () => await getWizz(props.id));
 
     const handleDelete = async () => {
       await deleteWizz(props.id);
@@ -32,8 +41,10 @@ export default {
     };
 
     return {
-      isPending,
+      isDeleting,
       handleDelete,
+      isLoading,
+      wizzkid,
     };
   },
 };
